@@ -15,4 +15,11 @@ public abstract class ApiEndpoints
         public const string Update =  $"{Base}/{{id:guid}}";
         public const string Delete = $"{Base}/{{id:guid}}";
     }
+
+    public static class Ratings
+    {
+        private const string Base = $"{ApiBase}/ratings";
+
+        public const string GetUserRatings = $"{ApiBase}/me";
+    }
 }
