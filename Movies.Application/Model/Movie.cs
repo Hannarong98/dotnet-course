@@ -9,6 +9,10 @@ public partial class Movie
 
     public required string Title { get; set; }
     
+    public float? Rating { get; set; }
+    
+    public int? UserRating { get; set; }
+    
     public string Slug => GenerateSlug();
     
     [Column("year_of_release")]

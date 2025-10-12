@@ -1,0 +1,25 @@
+meta {
+  name: Create Movie
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://{{baseUrl}}/api/movies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "214121",
+    "yearOfRelease": 2010,
+    "genres": [
+      "Post Apocalyptic"
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+}

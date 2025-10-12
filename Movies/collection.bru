@@ -1,0 +1,22 @@
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: authorization_code
+  callback_url: https://oauth.bruno.io/v1/callback
+  authorization_url: http://localhost:8080/realms/movies/protocol/openid-connect/auth
+  access_token_url: http://localhost:8080/realms/movies/protocol/openid-connect/token
+  refresh_token_url: 
+  client_id: 3f1d44d8-a9e1-47ea-9c04-c0456dba097c
+  client_secret: 
+  scope: movies.write
+  state: 
+  pkce: true
+  credentials_placement: body
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: false
+}

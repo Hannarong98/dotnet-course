@@ -28,11 +28,11 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     [HttpGet(ApiEndpoints.Movies.GetByIdOrSlug)]
     public async Task<IActionResult> Get([FromRoute] string idOrSlug, CancellationToken token)
     {
-
+        var user = HttpContext.GetUserId();
 
         var movie = Guid.TryParse(idOrSlug, out var id)
-            ? await movieService.GetByIdAsync(id, token)
-            : await movieService.GetBySlugAsync(idOrSlug, token);
+            ? await movieService.GetByIdAsync(id, user, token)
+            : await movieService.GetBySlugAsync(idOrSlug, user, token);
                 
 
         if (movie is null)
@@ -48,7 +48,10 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     [HttpGet(ApiEndpoints.Movies.GetAll)]
     public async Task<IActionResult> GetAll(CancellationToken token)
     {
-        var movies = await movieService.GetAllAsync(token);
+        
+        var user = HttpContext.GetUserId();
+        
+        var movies = await movieService.GetAllAsync(user, token);
 
         var response = movies.MapToResponse();
         
@@ -59,8 +62,11 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     [HttpPut(ApiEndpoints.Movies.Update)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMovieRequest request, CancellationToken token)
     {
+        
+        var user = HttpContext.GetUserId();
+        
         var movie = request.MapToMovie(id);
-        var updatedMovie = await movieService.UpdateAsync(movie, token);
+        var updatedMovie = await movieService.UpdateAsync(movie, user, token);
 
         if (updatedMovie is null)
         {
