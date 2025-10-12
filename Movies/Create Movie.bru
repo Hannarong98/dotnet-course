@@ -20,14 +20,6 @@ body:json {
   }
 }
 
-script:post-response {
-  bru.getOauth2CredentialVar('$oauth2.<Token ID>.access_token')
-}
-
-tests {
-  bru.getOauth2CredentialVar('$oauth2.<Token ID>.access_token')
-}
-
 settings {
   encodeUrl: true
 }
