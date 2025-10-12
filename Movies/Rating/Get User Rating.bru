@@ -1,0 +1,15 @@
+meta {
+  name: Get User Rating
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://{{baseUrl}}/api/rating/me
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

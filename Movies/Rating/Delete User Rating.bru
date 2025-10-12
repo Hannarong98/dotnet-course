@@ -1,0 +1,25 @@
+meta {
+  name: Delete User Rating
+  type: http
+  seq: 2
+}
+
+put {
+  url: https://{{baseUrl}}/api/movies/:idOrSlug/ratings
+  body: json
+  auth: inherit
+}
+
+params:path {
+  idOrSlug: 9d6094af-e6c1-4cad-ae16-2413c6e2a886
+}
+
+body:json {
+  {
+    "rating": 5
+  }
+}
+
+settings {
+  encodeUrl: true
+}
