@@ -6,8 +6,6 @@ public static class IdentityExtensions
     {
         var subject = context.User.Claims.SingleOrDefault(x => x.Type == "sub");
 
-        if (Guid.TryParse(subject?.Value, out var userId)) return userId;
-
-        return null;
+        return Guid.TryParse(subject?.Value, out var userId) ? userId : null;
     }
 }
