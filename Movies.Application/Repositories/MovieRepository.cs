@@ -102,18 +102,20 @@ public class MovieRepository(IDbConnectionFactory connectionFactory) : IMovieRep
         using var connection = await connectionFactory.CreateConnectionAsync(token);
 
         const string query = """
-                             select m.*, 
-                                    string_agg(distinct g.name, ',') as genres,
-                                    round(avg(r.rating), 1) as rating,
-                                    ur.rating as userrating
-                             from movies m left join genres g on m.id = g.movieid
-                             left join genres g on m.id = g.movieid
-                             left join ratings r on m.id = r.movieid
-                             left join ratings ur on m.id = ur.movieid and ur.userid = @userId
-                             group by id
+                                 select 
+                                     m.*, 
+                                     string_agg(distinct g.name, ',') as genres,
+                                     round(avg(r.rating), 1) as rating,
+                                     ur.rating as userrating
+                                 from movies m
+                                 left join genres g on m.id = g.movieid
+                                 left join ratings r on m.id = r.movieid
+                                 left join ratings ur on m.id = ur.movieid and ur.userid = @userId
+                                 group by m.id, ur.rating
                              """;
 
-        var results = await connection.QueryAsync(new CommandDefinition(query, cancellationToken: token));
+
+        var results = await connection.QueryAsync(new CommandDefinition(query, new {userId}, cancellationToken: token));
         
         return results.Select(item => new Movie
         {

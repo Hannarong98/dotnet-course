@@ -1,0 +1,29 @@
+meta {
+  name: Update Movie
+  type: http
+  seq: 6
+}
+
+put {
+  url: https://{{baseUrl}}/api/movies/:idOrSlug
+  body: json
+  auth: inherit
+}
+
+params:path {
+  idOrSlug: 8f52f125-d727-48bd-b330-4980b4be0d7f
+}
+
+body:json {
+  {
+    "title": "update",
+    "yearOfRelease": 2010,
+    "genres": [
+      "Post Apocalyptic"
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+}
