@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Movies.Api.Auth;
 using Movies.Api.Mapping;
@@ -21,6 +22,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         ValidateAudience = true,
         RoleClaimType = ClaimTypes.Role
     };
+    options.MapInboundClaims = false;
 });
 
 builder.Services.AddScoped<IClaimsTransformation, KeycloakRolesClaimsTransformation>();

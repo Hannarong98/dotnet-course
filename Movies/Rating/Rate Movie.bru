@@ -1,0 +1,25 @@
+meta {
+  name: Rate Movie
+  type: http
+  seq: 1
+}
+
+put {
+  url: https://{{baseUrl}}/movies/:idOrSlug/ratings
+  body: json
+  auth: inherit
+}
+
+params:path {
+  idOrSlug: 9d6094af-e6c1-4cad-ae16-2413c6e2a886
+}
+
+body:json {
+  {
+    "rating": 3
+  }
+}
+
+settings {
+  encodeUrl: true
+}

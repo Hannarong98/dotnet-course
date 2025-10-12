@@ -16,5 +16,5 @@ public interface IMovieRepository
 
     Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
     
-    Task<bool> ExistById(Guid id, CancellationToken token = default);
+    Task<bool> ExistByIdAsync(Guid id, CancellationToken token = default);
 }

@@ -32,7 +32,7 @@ public class MovieService(IMovieRepository movieRepository, IRatingRepository ra
     {
 
         await validator.ValidateAndThrowAsync(movie, cancellationToken: token);
-        var movieExists = await movieRepository.ExistById(movie.Id);
+        var movieExists = await movieRepository.ExistByIdAsync(movie.Id);
         if (!movieExists)
         {
             return null;

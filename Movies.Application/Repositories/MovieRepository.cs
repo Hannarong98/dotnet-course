@@ -174,7 +174,7 @@ public class MovieRepository(IDbConnectionFactory connectionFactory) : IMovieRep
         return result > 0;
     }
 
-    public async Task<bool> ExistById(Guid id, CancellationToken token = default)
+    public async Task<bool> ExistByIdAsync(Guid id, CancellationToken token = default)
     {
         using var connection = await connectionFactory.CreateConnectionAsync(token);
 

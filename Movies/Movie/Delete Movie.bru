@@ -1,17 +1,17 @@
 meta {
-  name: Get Movie
+  name: Delete Movie
   type: http
-  seq: 4
+  seq: 2
 }
 
-get {
+delete {
   url: https://{{baseUrl}}/api/movies/:idOrSlug
   body: none
   auth: inherit
 }
 
 params:path {
-  idOrSlug: update-2010
+  idOrSlug: 17678178-3ceb-44da-971b-eb05e75d7490
 }
 
 settings {
