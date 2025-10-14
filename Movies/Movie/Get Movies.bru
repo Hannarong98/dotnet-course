@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: https://{{baseUrl}}/api/movies
+  url: https://{{baseUrl}}/api/movies?title=2141
   body: none
   auth: inherit
+}
+
+params:query {
+  title: 2141
 }
 
 settings {
