@@ -101,25 +101,45 @@ public class MovieRepository(IDbConnectionFactory connectionFactory) : IMovieRep
     {
         using var connection = await connectionFactory.CreateConnectionAsync(token);
 
-        const string query = """
-                                 select 
-                                     m.*, 
-                                     string_agg(distinct g.name, ',') as genres,
-                                     round(avg(r.rating), 1) as rating,
-                                     ur.rating as userrating
-                                 from movies m
-                                 left join genres g on m.id = g.movieid
-                                 left join ratings r on m.id = r.movieid
-                                 left join ratings ur on m.id = ur.movieid and ur.userid = @userId
-                                 where (@title is null or m.title like ('%' || @title || '%'))
-                                 and (@yearofrelease is null or m.year_of_release = @yearofrelease)
-                                 group by m.id, ur.rating
-                             """;
+        var orderClause = string.Empty;
 
+        if (option.SortField is not null)
+        {
+            orderClause = $"""
+                           , m.{(option.SortField.Equals("yearofrelease") ? "year_of_release" : option.SortField)}
+                           order by m.{(option.SortField.Equals("yearofrelease") ? "year_of_release" : option.SortField)} {(option.SortOrder == SortOrder.Ascending ? "asc" : "desc")}
+                           """;
+        }
+        
+        
+        
+        var query = $"""
+                     select 
+                      m.*, 
+                      string_agg(distinct g.name, ',') as genres,
+                      round(avg(r.rating), 1) as rating,
+                      ur.rating as userrating
+                     from movies m
+                     left join genres g on m.id = g.movieid
+                     left join ratings r on m.id = r.movieid
+                     left join ratings ur on m.id = ur.movieid and ur.userid = @userId
+                     where (@title is null or m.title like ('%' || @title || '%'))
+                     and (@yearofrelease is null or m.year_of_release = @yearofrelease)
+                     group by m.id, ur.rating {orderClause}
+                     limit @pageSize
+                     offset @pageOffset
+                     """;
 
-        var command = new CommandDefinition(query,
-            new { userId = option.UserId, title = option.Title, yearofrelease = option.YearOfRelease },
-            cancellationToken: token);
+        var param = new
+        {
+            userId = option.UserId,
+            title = option.Title,
+            yearofrelease = option.YearOfRelease,
+            pageSize = option.PageSize,
+            pageOffset = (option.Page - 1) * option.PageSize
+        };
+
+        var command = new CommandDefinition(query, param, cancellationToken: token);
         
         var results = await connection.QueryAsync(command);
         
@@ -189,5 +209,18 @@ public class MovieRepository(IDbConnectionFactory connectionFactory) : IMovieRep
                              """;
 
         return await connection.ExecuteScalarAsync<bool>(new CommandDefinition(query, new { id }, cancellationToken: token));
+    }
+
+    public async Task<int> GetCountAsync(string? title, int? yearOfRelease, CancellationToken token = default)
+    {
+        using var connection = await connectionFactory.CreateConnectionAsync(token);
+
+        const string query = """
+                             select count(id) from movies
+                             where (@title is null or title like ('%' || @title || '%'))
+                             and (@yearofrelease is null or year_of_release = @yearofrelease)
+                             """;
+        
+        return await connection.QuerySingleAsync<int>(new CommandDefinition(query, new { title, yearOfRelease }, cancellationToken: token));
     }
 }
