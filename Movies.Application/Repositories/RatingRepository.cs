@@ -16,8 +16,10 @@ public class RatingRepository(IDbConnectionFactory dbConnectionFactory) : IRatin
                            on conflict (userid, movieid) do update
                            set rating = @rating
                            """;
-        
-        var result =  await connection.ExecuteAsync(new CommandDefinition(sql, new { userId, movieId, rating }, cancellationToken: token));
+
+        var result =
+            await connection.ExecuteAsync(new CommandDefinition(sql, new { userId, movieId, rating },
+                cancellationToken: token));
 
         return result > 0;
     }
@@ -54,7 +56,8 @@ public class RatingRepository(IDbConnectionFactory dbConnectionFactory) : IRatin
         return result > 0;
     }
 
-    public async Task<(float? Rating, int? UserRating)> GetRatingAsync(Guid movieId, Guid userId, CancellationToken token = default)
+    public async Task<(float? Rating, int? UserRating)> GetRatingAsync(Guid movieId, Guid userId,
+        CancellationToken token = default)
     {
         using var connection = await dbConnectionFactory.CreateConnectionAsync(token);
 
@@ -64,7 +67,7 @@ public class RatingRepository(IDbConnectionFactory dbConnectionFactory) : IRatin
                            from ratings
                            where movieid = @movieId
                            """;
-        
+
         return await connection.QuerySingleOrDefaultAsync<(float?, int?)>(new CommandDefinition(sql,
             new { movieId, userId },
             cancellationToken: token

@@ -5,11 +5,11 @@ namespace Movies.Application.Validators;
 
 public class GetAllMoviesOptionValidator : AbstractValidator<GetAllMoviesOption>
 {
-
     private static readonly string[] ValidSortFields =
     {
         "title", "yearofrelease"
     };
+
     public GetAllMoviesOptionValidator()
     {
         RuleFor(x => x.YearOfRelease)

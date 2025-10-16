@@ -13,7 +13,8 @@ public class RatingsController(IRatingService ratingService) : ControllerBase
     [Authorize]
     [HttpPut(ApiEndpoints.V1.Movies.Rate)]
     [EndpointDescription("Rate a movie")]
-    public async Task<IActionResult> RateMovie([FromRoute] Guid id, [FromBody] RateMovieRequest request, CancellationToken token)
+    public async Task<IActionResult> RateMovie([FromRoute] Guid id, [FromBody] RateMovieRequest request,
+        CancellationToken token)
     {
         var userId = HttpContext.GetUserId();
 
@@ -21,7 +22,7 @@ public class RatingsController(IRatingService ratingService) : ControllerBase
 
         return result ? Ok() : NotFound();
     }
-    
+
     [Authorize]
     [HttpDelete(ApiEndpoints.V1.Movies.DeleteRating)]
     [EndpointDescription("Delete user rating by user id")]
@@ -42,7 +43,7 @@ public class RatingsController(IRatingService ratingService) : ControllerBase
         var user = HttpContext.GetUserId();
 
         var ratings = await ratingService.GetRatingsForUserAsync(user!.Value, token);
-        
+
         return Ok(ratings.MapToResponse());
     }
 }
