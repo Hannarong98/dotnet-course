@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Api.Auth;
 using Movies.Api.Mapping;
+using Movies.Application.Auth;
 using Movies.Application.Services;
 using Movies.Contracts.Requests;
 
-namespace Movies.Api.Controllers;
+namespace Movies.Api.Controllers.V1;
 
 [ApiController]
 public class RatingsController(IRatingService ratingService) : ControllerBase

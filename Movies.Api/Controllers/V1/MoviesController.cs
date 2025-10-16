@@ -1,13 +1,13 @@
 ﻿using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Api.Auth;
 using Movies.Api.Mapping;
+using Movies.Application.Auth;
 using Movies.Application.Services;
 using Movies.Contracts.Requests;
 using Movies.Contracts.Responses;
 
-namespace Movies.Api.Controllers;
+namespace Movies.Api.Controllers.V1;
 
 [ApiController]
 public class MoviesController(IMovieService movieService) : ControllerBase

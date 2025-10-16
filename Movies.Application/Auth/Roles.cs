@@ -1,4 +1,4 @@
-﻿namespace Movies.Api.Auth;
+﻿namespace Movies.Application.Auth;
 
 public static class Roles
 {

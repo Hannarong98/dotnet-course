@@ -1,4 +1,6 @@
-﻿namespace Movies.Api.Auth;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Movies.Application.Auth;
 
 public static class IdentityExtensions
 {

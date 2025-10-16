@@ -1,8 +1,10 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
+using Movies.Api.Auth;
 
-namespace Movies.Api.Auth;
+namespace Movies.Application.Auth;
 
 public class KeycloakRolesClaimsTransformation(IConfiguration config) : IClaimsTransformation
 {
