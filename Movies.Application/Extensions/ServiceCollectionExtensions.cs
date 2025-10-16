@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Movies.Application.Auth;
 using Movies.Application.Database;
 using Movies.Application.Repositories;
@@ -11,7 +12,7 @@ using Movies.Application.Services;
 
 namespace Movies.Application.Extensions;
 
-public static class ApplicationServiceCollectionExtensions
+public static class ServiceCollectionExtensions
 {
 
     public static IServiceCollection AddAuth(this IServiceCollection services,
@@ -38,6 +39,38 @@ public static class ApplicationServiceCollectionExtensions
             {
                 policy.RequireRole(Roles.Write);
             });
+        return services;
+    }
+
+    public static IServiceCollection AddOpenApiWithSecuritySchemes(this IServiceCollection services)
+    {
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, _, _) =>
+            {
+                var scheme = new OpenApiSecurityScheme()
+                {
+                    BearerFormat = "JWT",
+                    Description = "OAuth2 authentication using JWT bearer tokens.",
+                    Scheme = "bearer",
+                    Type = SecuritySchemeType.OAuth2,
+                    Reference = new OpenApiReference
+                    {
+                        Id = "OAuth2",
+                        Type = ReferenceType.SecurityScheme,
+                    },
+                };
+
+                document.Components ??= new OpenApiComponents();
+                document.Components.SecuritySchemes ??= new Dictionary<string, OpenApiSecurityScheme>();
+                document.Components.SecuritySchemes[scheme.Reference.Id] = scheme;
+                document.SecurityRequirements ??= [];
+                document.SecurityRequirements.Add(new OpenApiSecurityRequirement { [scheme] = [] });
+        
+                return Task.CompletedTask;
+            });
+        });
+
         return services;
     }
     

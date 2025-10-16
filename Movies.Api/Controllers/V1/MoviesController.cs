@@ -16,6 +16,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     [HttpPost(ApiEndpoints.V1.Movies.Create)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType<MovieResponse>(StatusCodes.Status201Created)]
+    [EndpointDescription("Register a movie")]
     public async Task<IActionResult> Create([FromBody]CreateMovieRequest request, CancellationToken token)
     {
         var movie = request.MapToMovie();
@@ -26,6 +27,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.V1.Movies.GetByIdOrSlug)]
+    [EndpointDescription("Get movie by id or slug")]
     public async Task<IActionResult> Get([FromRoute] string idOrSlug, CancellationToken token)
     {
         var user = HttpContext.GetUserId();
@@ -46,6 +48,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     }
     
     [HttpGet(ApiEndpoints.V1.Movies.GetAll)]
+    [EndpointDescription("Get paginated movies")]
     public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesRequest request, CancellationToken token)
     {
         
@@ -64,6 +67,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
 
     [Authorize(Policy = Roles.Write)]
     [HttpPut(ApiEndpoints.V1.Movies.Update)]
+    [EndpointDescription("Update a movie by id")]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMovieRequest request, CancellationToken token)
     {
         
@@ -84,6 +88,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
 
     [Authorize(Policy = Roles.Write)]
     [HttpDelete(ApiEndpoints.V1.Movies.Delete)]
+    [EndpointDescription("Delete a movie by id")]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
     {
         var deleted = await movieService.DeleteByIdAsync(id, token);

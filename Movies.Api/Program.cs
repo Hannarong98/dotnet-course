@@ -9,6 +9,8 @@ var config = builder.Configuration;
 
 builder.Services.AddAuth(config);
 
+builder.Services.AddOpenApiWithSecuritySchemes();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
@@ -19,7 +21,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // add scalar
+  app.MapOpenApiSpec(config);
 }
 
 app.UseHttpsRedirection();
