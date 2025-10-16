@@ -3,7 +3,7 @@
 Doing a course in free time
 
 * .NET 9
-* Postgres
+* Postgres npgsql
 * Dapper
 * Keycloak OAuth2
 * Scalar API doc
