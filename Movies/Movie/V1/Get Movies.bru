@@ -5,13 +5,14 @@ meta {
 }
 
 get {
-  url: https://{{baseUrl}}/api/movies?title=2141
+  url: https://{{baseUrl}}/api/{{version}}/movies?page=1&pageSize=20
   body: none
   auth: inherit
 }
 
 params:query {
-  title: 2141
+  page: 1
+  pageSize: 20
 }
 
 settings {

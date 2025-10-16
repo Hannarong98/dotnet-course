@@ -1,11 +1,11 @@
 meta {
   name: Delete Movie
   type: http
-  seq: 2
+  seq: 1
 }
 
 delete {
-  url: https://{{baseUrl}}/api/movies/:idOrSlug
+  url: https://{{baseUrl}}/api/{{version}}/movies/:idOrSlug
   body: none
   auth: inherit
 }

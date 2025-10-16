@@ -13,7 +13,7 @@ namespace Movies.Api.Controllers;
 public class MoviesController(IMovieService movieService) : ControllerBase
 {
     [Authorize(Policy = Roles.Write)]
-    [HttpPost(ApiEndpoints.Movies.Create)]
+    [HttpPost(ApiEndpoints.V1.Movies.Create)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType<MovieResponse>(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody]CreateMovieRequest request, CancellationToken token)
@@ -25,7 +25,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
         return CreatedAtAction(nameof(Get), new { idOrSlug = movie.Id },response);
     }
 
-    [HttpGet(ApiEndpoints.Movies.GetByIdOrSlug)]
+    [HttpGet(ApiEndpoints.V1.Movies.GetByIdOrSlug)]
     public async Task<IActionResult> Get([FromRoute] string idOrSlug, CancellationToken token)
     {
         var user = HttpContext.GetUserId();
@@ -45,7 +45,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
         return Ok(response);
     }
     
-    [HttpGet(ApiEndpoints.Movies.GetAll)]
+    [HttpGet(ApiEndpoints.V1.Movies.GetAll)]
     public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesRequest request, CancellationToken token)
     {
         
@@ -63,7 +63,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     }
 
     [Authorize(Policy = Roles.Write)]
-    [HttpPut(ApiEndpoints.Movies.Update)]
+    [HttpPut(ApiEndpoints.V1.Movies.Update)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMovieRequest request, CancellationToken token)
     {
         
@@ -83,7 +83,7 @@ public class MoviesController(IMovieService movieService) : ControllerBase
     }
 
     [Authorize(Policy = Roles.Write)]
-    [HttpDelete(ApiEndpoints.Movies.Delete)]
+    [HttpDelete(ApiEndpoints.V1.Movies.Delete)]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
     {
         var deleted = await movieService.DeleteByIdAsync(id, token);

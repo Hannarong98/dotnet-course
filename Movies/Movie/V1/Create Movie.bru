@@ -1,0 +1,28 @@
+meta {
+  name: Create Movie
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://{{baseUrl}}/api/{{version}}/movies
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Shawshank redemption",
+    "yearOfRelease": 1994,
+    "genres": [
+      "Epic",
+      "Period Drama",
+      "Prison Drama",
+      "Drama"
+    ]
+  }
+}
+
+settings {
+  encodeUrl: true
+}
