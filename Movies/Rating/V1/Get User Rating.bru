@@ -1,11 +1,11 @@
 meta {
   name: Get User Rating
   type: http
-  seq: 3
+  seq: 2
 }
 
 get {
-  url: https://{{baseUrl}}/api/rating/me
+  url: https://{{baseUrl}}/api/{{version}}/ratings/me
   body: none
   auth: inherit
 }

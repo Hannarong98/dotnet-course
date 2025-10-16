@@ -1,11 +1,11 @@
 meta {
   name: Update Movie
   type: http
-  seq: 3
+  seq: 2
 }
 
 put {
-  url: https://{{baseUrl}}/api/movies/:idOrSlug
+  url: https://{{baseUrl}}/api/{{version}}/movies/:idOrSlug
   body: json
   auth: inherit
 }
