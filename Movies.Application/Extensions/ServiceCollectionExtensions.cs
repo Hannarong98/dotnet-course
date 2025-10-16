@@ -14,7 +14,6 @@ namespace Movies.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-
     public static IServiceCollection AddAuth(this IServiceCollection services,
         IConfiguration configuration)
     {
@@ -35,10 +34,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IClaimsTransformation, KeycloakRolesClaimsTransformation>();
 
         services.AddAuthorizationBuilder()
-            .AddPolicy(Roles.Write, policy =>
-            {
-                policy.RequireRole(Roles.Write);
-            });
+            .AddPolicy(Roles.Write, policy => { policy.RequireRole(Roles.Write); });
         return services;
     }
 
@@ -48,7 +44,7 @@ public static class ServiceCollectionExtensions
         {
             options.AddDocumentTransformer((document, _, _) =>
             {
-                var scheme = new OpenApiSecurityScheme()
+                var scheme = new OpenApiSecurityScheme
                 {
                     BearerFormat = "JWT",
                     Description = "OAuth2 authentication using JWT bearer tokens.",
@@ -57,8 +53,8 @@ public static class ServiceCollectionExtensions
                     Reference = new OpenApiReference
                     {
                         Id = "OAuth2",
-                        Type = ReferenceType.SecurityScheme,
-                    },
+                        Type = ReferenceType.SecurityScheme
+                    }
                 };
 
                 document.Components ??= new OpenApiComponents();
@@ -66,14 +62,14 @@ public static class ServiceCollectionExtensions
                 document.Components.SecuritySchemes[scheme.Reference.Id] = scheme;
                 document.SecurityRequirements ??= [];
                 document.SecurityRequirements.Add(new OpenApiSecurityRequirement { [scheme] = [] });
-        
+
                 return Task.CompletedTask;
             });
         });
 
         return services;
     }
-    
+
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddSingleton<IMovieRepository, MovieRepository>();
@@ -86,7 +82,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IDbConnectionFactory>(_ => new NpgsqlConnectionFactory(configuration["Database:ConnectionString"]!));
+        services.AddSingleton<IDbConnectionFactory>(_ =>
+            new NpgsqlConnectionFactory(configuration["Database:ConnectionString"]!));
         services.AddSingleton<DbInitializer>();
         return services;
     }

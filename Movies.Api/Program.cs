@@ -2,7 +2,6 @@ using Movies.Api.Mapping;
 using Movies.Application.Database;
 using Movies.Application.Extensions;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
@@ -19,10 +18,7 @@ builder.Services.AddDatabase(config);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-  app.MapOpenApiSpec(config);
-}
+if (app.Environment.IsDevelopment()) app.MapOpenApiSpec(config);
 
 app.UseHttpsRedirection();
 
@@ -37,4 +33,3 @@ var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
 await dbInitializer.InitializeAsync();
 
 app.Run();
-

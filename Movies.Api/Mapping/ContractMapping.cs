@@ -8,7 +8,7 @@ public static class ContractMapping
 {
     public static Movie MapToMovie(this CreateMovieRequest request)
     {
-        return new Movie()
+        return new Movie
         {
             Id = Guid.NewGuid(),
             Genres = request.Genres.ToList(),
@@ -16,10 +16,10 @@ public static class ContractMapping
             YearOfRelease = request.YearOfRelease
         };
     }
-    
+
     public static Movie MapToMovie(this UpdateMovieRequest request, Guid id)
     {
-        return new Movie()
+        return new Movie
         {
             Id = id,
             Genres = request.Genres.ToList(),
@@ -29,10 +29,9 @@ public static class ContractMapping
     }
 
 
-
     public static MovieResponse MapToResponse(this Movie movie)
     {
-        return new MovieResponse()
+        return new MovieResponse
         {
             Genres = movie.Genres,
             Id = movie.Id,
@@ -43,18 +42,18 @@ public static class ContractMapping
             Slug = movie.Slug
         };
     }
-    
+
     public static MoviesResponse MapToResponse(this IEnumerable<Movie> movies, int page, int pageSize, int totalCount)
     {
         return new MoviesResponse
         {
-           Items = movies.Select(MapToResponse),
-           Page = page,
-           PageSize = pageSize,
-           Total = totalCount
+            Items = movies.Select(MapToResponse),
+            Page = page,
+            PageSize = pageSize,
+            Total = totalCount
         };
     }
-    
+
     public static IEnumerable<MovieRatingResponse> MapToResponse(this IEnumerable<MovieRating> ratings)
     {
         return ratings.Select(x => new MovieRatingResponse
@@ -72,13 +71,13 @@ public static class ContractMapping
             Title = request.Title,
             YearOfRelease = request.Year,
             SortField = request.SortBy?.Trim('+', '-'),
-            SortOrder = request.SortBy is null ? SortOrder.Unsorted : 
+            SortOrder = request.SortBy is null ? SortOrder.Unsorted :
                 request.SortBy.StartsWith('-') ? SortOrder.Descending : SortOrder.Ascending,
             Page = request.Page,
             PageSize = request.PageSize
         };
     }
-    
+
     public static GetAllMoviesOption WithUser(this GetAllMoviesOption option, Guid? userId)
     {
         option.UserId = userId;

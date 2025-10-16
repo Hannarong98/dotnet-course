@@ -5,8 +5,7 @@ namespace Movies.Contracts.Requests;
 
 public class PagedRequest
 {
-    [Description("Page number")]
-    public required int Page { get; init; } = 1;
+    [Description("Page number")] public required int Page { get; init; } = 1;
 
     [Description("Page size")]
     [Range(1, 20)]

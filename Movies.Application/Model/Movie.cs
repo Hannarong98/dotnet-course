@@ -8,15 +8,14 @@ public partial class Movie
     public required Guid Id { get; init; }
 
     public required string Title { get; set; }
-    
+
     public float? Rating { get; set; }
-    
+
     public int? UserRating { get; set; }
-    
+
     public string Slug => GenerateSlug();
-    
-    [Column("year_of_release")]
-    public required int YearOfRelease { get; set; }
+
+    [Column("year_of_release")] public required int YearOfRelease { get; set; }
 
     public required List<string> Genres { get; init; } = new();
 

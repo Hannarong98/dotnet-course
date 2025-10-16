@@ -8,7 +8,6 @@ public static class WebApplicationExtensions
 {
     public static WebApplication MapOpenApiSpec(this WebApplication app, IConfiguration configuration)
     {
-
         app.MapOpenApi();
         app.MapScalarApiReference("/docs", options =>
         {
@@ -27,7 +26,7 @@ public static class WebApplicationExtensions
                 })
                 .AddDefaultScopes("OAuth2", ["movies.write"]);
         });
-        
+
         return app;
     }
 }
