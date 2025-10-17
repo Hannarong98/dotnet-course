@@ -62,7 +62,24 @@ public static class ServiceCollectionExtensions
                 document.Components.SecuritySchemes[scheme.Reference.Id] = scheme;
                 document.SecurityRequirements ??= [];
                 document.SecurityRequirements.Add(new OpenApiSecurityRequirement { [scheme] = [] });
+                
+                var operation = new OpenApiOperation
+                {
+                    OperationId = "HealthCheck",
+                    Description = "Performs API health check",
+                    Tags = new List<OpenApiTag> { new() { Name = "Health" } },
+                    Responses =
+                    {
+                        { "200", new OpenApiResponse { Description = "Healthy" } },
+                        { "503", new OpenApiResponse { Description = "Service Unavailable" } }
+                    },
+                };
 
+                var pathItem = new OpenApiPathItem();
+                
+                pathItem.AddOperation(OperationType.Get, operation);
+                document.Paths.Add("/healthz", pathItem);
+                
                 return Task.CompletedTask;
             });
         });

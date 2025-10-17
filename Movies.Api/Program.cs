@@ -23,10 +23,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) app.MapOpenApiSpec(config);
 
-app.MapHealthChecks("healthz");
+app.MapHealthChecks("/healthz");
 
 app.UseHttpsRedirection();
-
 
 app.UseAuthentication();
 app.UseAuthorization();
