@@ -6,13 +6,13 @@
         <UserSecretsId>45dbdc90-d3c7-4bb2-b166-5307684dc6be</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10" />
-        <PackageReference Include="Scalar.AspNetCore" Version="2.9.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.9.0"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Movies.Application\Movies.Application.csproj" />
-        <ProjectReference Include="..\Movies.Contracts\Movies.Contracts.csproj" />
+        <ProjectReference Include="..\Movies.Application\Movies.Application.csproj"/>
+        <ProjectReference Include="..\Movies.Contracts\Movies.Contracts.csproj"/>
     </ItemGroup>
 </Project>

@@ -2,7 +2,8 @@
 
 Doing a course in free time
 
-* .NET 8
-* Postgres
+* .NET 9
+* Postgres npgsql
 * Dapper
-* JWT with Keycloak
+* Keycloak OAuth2
+* Scalar API doc

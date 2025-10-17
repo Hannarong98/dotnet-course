@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Dapper;
 using Npgsql;
 
 namespace Movies.Application.Database;
@@ -15,9 +16,9 @@ public class NpgsqlConnectionFactory : IDbConnectionFactory
     public NpgsqlConnectionFactory(string? connectionString)
     {
         _connectionString = connectionString;
-        Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
     }
-    
+
     public async Task<IDbConnection> CreateConnectionAsync(CancellationToken token = default)
     {
         var connection = new NpgsqlConnection(_connectionString);

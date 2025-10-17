@@ -7,15 +7,16 @@ public abstract class ApiEndpoints
     public static class V1
     {
         private const string VersionBase = $"{ApiBase}/v1";
+
         public static class Movies
         {
             private const string MoviesBase = $"{VersionBase}/movies";
-        
+
 
             public const string GetByIdOrSlug = $"{MoviesBase}/{{idOrSlug}}";
             public const string GetAll = MoviesBase;
             public const string Create = MoviesBase;
-            public const string Update =  $"{MoviesBase}/{{id:guid}}";
+            public const string Update = $"{MoviesBase}/{{id:guid}}";
             public const string Delete = $"{MoviesBase}/{{id:guid}}";
 
 
@@ -30,6 +31,4 @@ public abstract class ApiEndpoints
             public const string GetUserRatings = $"{RatingsBase}/me";
         }
     }
-
-   
 }

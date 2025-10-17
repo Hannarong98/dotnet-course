@@ -4,7 +4,7 @@ namespace Movies.Application.Database;
 
 public class DbInitializer(IDbConnectionFactory dbConnectionFactory)
 {
-    public async Task  InitializeAsync()
+    public async Task InitializeAsync()
     {
         using var connection = await dbConnectionFactory.CreateConnectionAsync();
 
@@ -23,7 +23,7 @@ public class DbInitializer(IDbConnectionFactory dbConnectionFactory)
             on movies
             using btree(slug);
             """);
-        
+
         await connection.ExecuteAsync(
             """
             create table if not exists genres (
@@ -31,7 +31,7 @@ public class DbInitializer(IDbConnectionFactory dbConnectionFactory)
                 name TEXT not null
             );
             """);
-        
+
         await connection.ExecuteAsync(
             """
             create table if not exists ratings (
@@ -41,6 +41,5 @@ public class DbInitializer(IDbConnectionFactory dbConnectionFactory)
                 primary key (userId, movieId)
             );
             """);
-
     }
 }
