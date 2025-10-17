@@ -3,6 +3,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>45dbdc90-d3c7-4bb2-b166-5307684dc6be</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
