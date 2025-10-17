@@ -1,3 +1,4 @@
+using Movies.Api.Health;
 using Movies.Api.Mapping;
 using Movies.Application.Database;
 using Movies.Application.Extensions;
@@ -14,11 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
 builder.Services.AddDatabase(config);
+builder.Services.AddHealthChecks()
+    .AddCheck<DatabaseHealthCheck>(DatabaseHealthCheck.Name);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) app.MapOpenApiSpec(config);
+
+app.MapHealthChecks("healthz");
 
 app.UseHttpsRedirection();
 
