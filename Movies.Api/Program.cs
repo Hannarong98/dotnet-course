@@ -18,6 +18,18 @@ builder.Services.AddDatabase(config);
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>(DatabaseHealthCheck.Name);
 
+builder.Services.AddOutputCache(options =>
+{
+    options.AddBasePolicy(policy => policy.Cache());
+    options.AddPolicy("MovieCache", policy =>
+    {
+        policy.Cache()
+            .Expire(TimeSpan.FromMinutes(1))
+            .SetVaryByQuery(["title", "year", "sortBy", "page", "pageSize"])
+            .Tag("movies");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +41,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// if cors is needed it needs to be called before UseOutputCache
+app.UseOutputCache();
 
 app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
