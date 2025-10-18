@@ -7,7 +7,7 @@ meta {
 get {
   url: https://{{baseUrl}}/api/{{version}}/movies?page=1&pageSize=20
   body: none
-  auth: inherit
+  auth: none
 }
 
 params:query {
@@ -17,4 +17,5 @@ params:query {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

@@ -7,7 +7,7 @@ meta {
 get {
   url: https://{{baseUrl}}/api/{{version}}/movies/:idOrSlug
   body: none
-  auth: inherit
+  auth: none
 }
 
 params:path {
@@ -16,4 +16,5 @@ params:path {
 
 settings {
   encodeUrl: true
+  timeout: 0
 }
