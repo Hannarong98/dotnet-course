@@ -17,8 +17,8 @@ public static class WebApplicationExtensions
                 .AddPreferredSecuritySchemes(["OAuth2"])
                 .AddAuthorizationCodeFlow("OAuth2", flow =>
                 {
-                    flow.ClientId = configuration["Jwt:ClientId"]!;
-                    flow.ClientSecret = configuration["Jwt:ClientSecret"];
+                    flow.ClientId = configuration["Scalar:ClientId"]!;
+                    flow.ClientSecret = configuration["Scalar:ClientSecret"]!;
                     flow.Pkce = Pkce.Sha256;
                     flow.AuthorizationUrl = configuration["Jwt:AuthorizationURL"]!;
                     flow.TokenUrl = configuration["Jwt:AccessTokenURL"]!;

@@ -26,6 +26,7 @@ public static class ServiceCollectionExtensions
             {
                 ValidateIssuer = true,
                 ValidateAudience = true,
+                ValidateLifetime = true,
                 RoleClaimType = ClaimTypes.Role
             };
             options.MapInboundClaims = false;
