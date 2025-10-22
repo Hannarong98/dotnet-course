@@ -1,9 +1,14 @@
 # Movie REST API
 
-Doing a course in free time
-
 * .NET 9
 * Postgres npgsql
 * Dapper
 * Keycloak OAuth2
 * Scalar API doc
+
+
+## Running locally
+
+- docker compose up
+- starts the api via IDE
+- some clickops in KeyCloak required
